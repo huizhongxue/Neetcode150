@@ -28,17 +28,20 @@
 
 def minCost(n, cost, memo = {}):
     if n in memo: return memo[n]
-    if n < 0: return 0
+    if n >= len(cost): return 0
 
     x = 0
+    if n >= 0: x = cost[n]
 
-    if minCost(n-1, cost, memo) < minCost(n-2, cost, memo):
-        x = cost[n] + minCost(n-1, cost, memo)
+    if minCost(n+1, cost, memo) < minCost(n+2, cost, memo):
+        x = x + minCost(n+1, cost, memo)
     else:
-        x = cost[n] + minCost(n-2, cost, memo)
+        x = x + minCost(n+2, cost, memo)
 
     memo[n] = x
     return x
 
+cost = [10,15,20]
     
+print(minCost(-1, cost))
 
